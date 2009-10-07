@@ -4,6 +4,7 @@ function manager()
 	if [ $1 = "-a" ];then
 		if [ -z $2 ];then
 			action_list="add:edit:del:find:dump:exit" # Data cung cap cho ham ve menu
+			draw_line
 			draw_menu_action missing_action $action_list  # Ve menu
 			user_act=`get_option`
 			echo ">>> Bạn đã chọn action $user_act"
@@ -44,6 +45,7 @@ function manager()
 
 function add_row()
 {
+	draw_line
 	get_db_name $1 $2
 	if [ -e $db_dir/$db ];then
 		last_id="`find_last_row $db_dir/$db`"

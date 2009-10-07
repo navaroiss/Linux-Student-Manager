@@ -67,24 +67,25 @@ function get_db_value()
 
 function get_db_name()
 {
+	# draw_line
 	if [ ! -z $1 ] ; then
 		if [ $1 = "-db" ];then
 			if [ ! -z $2 ];then
 				db=$2
 			else
-				draw_menu_action wrong_agr $database
+				draw_menu_action select_database $database
 				db=`get_option`
 			fi		
 		else
 			if is_dbarg $1; then
 				db=`get_db_value $1`
 			else
-				draw_menu_action wrong_agr $database
+				draw_menu_action select_database $database
 				db=`get_option`				
 			fi
 		fi
 	else
-		draw_menu_action wrong_agr $database
+		draw_menu_action select_database $database
 		db=`get_option`
 	fi
 }
