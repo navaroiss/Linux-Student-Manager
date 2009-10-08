@@ -229,16 +229,15 @@ function export_data()
 	draw_header export_type
 	draw_menu_action action_export `echo $menu | sed "s/ /__/g"`
 	selected_option=`get_option -k`
+	export_file="Export-`date +%d-%m-%Y`.txt"
 	case $selected_option in
 		1) 
 		get_db_name $1 $2
 		get_student_streamid
-		export_file="Export-`date +%d-%m-%Y`.txt"
 		find_student $db 2 "`echo $stream_id | sed 's/ /__/g'`"
 		;;
 		2) 
 		get_student_streamid
-		export_file="Export-`date +%d-%m-%Y`.txt"
 		db=$database
 		find_student $db 2 "`echo $stream_id | sed 's/ /__/g'`"
 		;;
@@ -246,7 +245,24 @@ function export_data()
 	if [ -e "$tmp_dir/search_tmp_result" ];then
 		read -p "`_ put_description`: " description
 		description="`echo $description | sed 's/ /__/g'`"
+		file_type_menu="Text:CSV:Excel"
+		draw_line
+		draw_menu_action action_export `echo $file_type_menu | sed "s/ /__/g"`
+		file_type=`get_option -k`
+		case $file_type in
+		1)
 		table_fields "$tmp_dir/search_tmp_result" -e $export_file -d "$db" -s "$stream_id" -m $description
+		;;
+		2)
+		export_as_csv "$tmp_dir/search_tmp_result" -e $export_file -d "$db" -s "$stream_id" -m $description
+		;;
+		3)
+		export_as_excel "$tmp_dir/search_tmp_result" -e $export_file -d "$db" -s "$stream_id" -m $description
+		;;
+		*)
+		# Mac dinh la xuat ra TEXT
+		table_fields "$tmp_dir/search_tmp_result" -e $export_file -d "$db" -s "$stream_id" -m $description
+		esac
 		rm "$tmp_dir/search_tmp_result"
 	else
 		echo "`_ student_not_found`"

@@ -292,3 +292,33 @@ function fshift_segment()
 		echo $rs
 	fi
 }
+function export_as_excel()
+{
+	excel_content=`cat $lib_dir/xlsformat`
+	excel_file="`echo $3 | sed 's/\.txt/\.xls/'`"
+	if [ ! -z $1 ];then
+		if [ -e $1 ];then
+			export_date=`date +%d-%m-%Y`
+			echo -n "`_ extracting_to` $excel_file..."
+			echo $excel_content > $excel_file
+			if [ $selected_option -eq 1 ];then
+				echo "<tr><td class=xl24 colspan=11>`_ export_type_1`</td></tr>" >> $excel_file
+			else
+				echo "<tr><td class=xl24 colspan=11>`_ export_type_2`</td></tr>" >> $excel_file
+			fi
+			echo "<tr><td class=xl24 width=64>`_ student_streamid`</td><td class=xl24 colspan=10> $stream_id</td></tr>" >> $excel_file
+			echo "<tr><td class=xl24 width=64>`_ semester_wise`</td><td class=xl24 colspan=10> `echo $5 | tr ':' ','`</td></tr>" >> $excel_file
+			echo "<tr><td class=xl24 width=64>`_ put_description`</td><td class=xl24 colspan=10> `echo $9 | sed 's/__/ /g'`</td></tr>" >> $excel_file
+			echo "<tr><td class=xl24 width=64>`_ date_generate`</td><td class=xl24 colspan=10>$export_date</td></tr>" >> $excel_file
+			echo "<tr><td class=xl24 colspan=11></td></tr>" >> $excel_file
+			header="`_ student_id`:`_ student_firstname`:`_ student_middlename`:`_ student_lastname`:`_ student_dateenroll`:`_ student_streamid`:`_ student_address`:`_ student_city`:`_ student_state`:`_ student_zipcode`:`_ student_phone`"
+			echo "<tr><td class=xl24 width=64>`echo $header | sed "s/:/<\/td><td class=xl24 width=64>/g"`</td></tr>" >> $excel_file
+			cat $1 | while read line;do
+				row=`echo $line | sed "s/:/<\/td><td class=xl24 width=64>/g"`
+				echo "<tr><td class=xl24 width=64>$row</td></tr>" >> $excel_file
+			done
+			echo "</table></body></html>" >> $excel_file
+			echo "`_ done`"
+		fi
+	fi
+}

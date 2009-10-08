@@ -16,6 +16,7 @@ database="A:B:C:D"
 item_per_table=10
 
 db_dir="./db"
+lib_dir="./libraries"
 tmp_dir="/tmp"
 style_student_id="000000"
 lang_dir="./lang"
