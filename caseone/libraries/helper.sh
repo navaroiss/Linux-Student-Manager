@@ -170,7 +170,7 @@ function auto_tab()
 }
 function table_fields()
 {
-	header="`_ student_id`:`_ student_firstname`:`_ student_middlename`:`_ student_lastname`:`_ student_dateenroll`:`_ student_streamid`:`_ student_address`:`_ student_city`:`_ student_state`:`_ student_zipcode`:`_ student_phone`"
+	header="`_ student_id`:`_ student_firstname`:`_ student_middlename`:`_ student_lastname`:`_ student_dateenroll`:`_ student_streamid`:`_ student_address`:`_ student_phone`:`_ student_city`:`_ student_state`:`_ student_zipcode`"
 	if [ -z $2 ];then
 		if [ ! -z $1 ];then
 			i=1
@@ -246,12 +246,19 @@ function table_fields()
 			dest_file=$3
 			data_file=$5
 			stream_id=$7
-			i=1
-			echo "`_ student_streamid`: $stream_id" > $dest_file
-			echo "`_ semester_wise`: `echo $data_file | tr ':' ','`" >> $dest_file
-			echo "`_ put_description`: `echo $9 | sed "s/__/ /g"`" >> $dest_file
 			echo -n "`_ extracting_to` $dest_file..."
-			auto_tab `echo $header | sed "s/ /__/g"` "*" -e >> $dest_file
+			i=1
+			if [ ! -z $stream_id ];then
+				echo "`_ student_streamid`: $stream_id" > $dest_file
+				echo "`_ semester_wise`: `echo $data_file | tr ':' ','`" >> $dest_file
+			else
+				echo "`_ semester_wise`: `echo $data_file | tr ':' ','`" > $dest_file				
+			fi
+			if [ ! -z $9 ];then
+				echo "`_ put_description`: `echo $9 | sed "s/__/ /g"`" >> $dest_file
+			fi
+			
+			auto_tab `echo $header | sed "s/ /__/g"` "0" -e >> $dest_file
 			cat $1 | while read line;do
 				auto_tab `echo $line | sed "s/ /__/g"` $i -e >> $dest_file
 				let i=$i+1

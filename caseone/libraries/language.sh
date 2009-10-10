@@ -61,36 +61,46 @@ function define_lang()
 	fi
 	echo "$SOFT_LANG" > "$lang_dir/config.conf"
 }
-
+function list_lang()
+{
+	current_lang=`cat $lang_dir/config.conf`
+	lang_name=`cat "$lang_dir/$current_lang/name.conf" | cut -d"-" -f2`
+	echo "`_ current_lang`: $lang_name"
+	echo "`_ select_language`:"
+	i=1
+	for item in `ls ./lang`;do
+		if [ -d "$lang_dir/$item" ];then
+			ct=`cat $lang_dir/$item/name.conf`
+			echo "$i) $ct"
+			lang[$i]=$item
+			let i=$i+1
+		fi
+	done
+	index=0
+	while [ $index -lt 1 -o $index -ge $i ];do 
+		read -p ">>> " index
+	done
+	if [ ! -z ${lang[$index]} ];then
+		define_lang ${lang[$index]}
+	fi
+}
 function update_lang()
 {
 	if [ ! -z $1 ];then
 		if [ $1 = "-l" ];then
-			current_lang=`cat $lang_dir/config.conf`
-			lang_name=`cat "$lang_dir/$current_lang/name.conf" | cut -d"-" -f2`
-			echo "`_ current_lang`: $lang_name"
-			echo "`_ select_language`:"
-			i=1
-			for item in `ls ./lang`;do
-				if [ -d "$lang_dir/$item" ];then
-					ct=`cat $lang_dir/$item/name.conf`
-					echo "$i) $ct"
-					lang[$i]=$item
-					let i=$i+1
+			if [ ! -z $2 ];then
+				if [ -e "$lang_dir/$2/name.conf" ];then
+					define_lang $2
+				else
+					list_lang
 				fi
-			done
-			index=0
-			while [ $index -lt 1 -o $index -ge $i ];do 
-				read -p ">>> " index
-			done
-			if [ ! -z ${lang[$index]} ];then
-				define_lang ${lang[$index]}
-				echo "`_  selected_lang`"
+			else
+				list_lang
 			fi
 		else
 			lang=`echo $1 | cut -d"=" -f2`
 			define_lang $lang
-			echo "`_  selected_lang`" 
 		fi
+		echo "`_  selected_lang`" 
 	fi
 }

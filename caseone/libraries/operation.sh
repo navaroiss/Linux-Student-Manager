@@ -301,14 +301,20 @@ function export_as_excel()
 			export_date=`date +%d-%m-%Y`
 			echo -n "`_ extracting_to` $excel_file..."
 			echo $excel_content > $excel_file
-			if [ $selected_option -eq 1 ];then
-				echo "<tr><td class=xl24 colspan=11>`_ export_type_1`</td></tr>" >> $excel_file
-			else
-				echo "<tr><td class=xl24 colspan=11>`_ export_type_2`</td></tr>" >> $excel_file
+			case $selected_option in
+				1) export_type=`_ export_type_1` ;;
+				2) export_type=`_ export_type_2` ;;
+				3) export_type=`_ export_type_3` ;;
+				*) export_type=`_ export_type_1`
+			esac
+			echo "<tr><td class=xl24 colspan=11>$export_type</td></tr>" >> $excel_file
+			if [ ! -z $stream_id ];then
+				echo "<tr><td class=xl24 width=64>`_ student_streamid`</td><td class=xl24 colspan=10> $stream_id</td></tr>" >> $excel_file
 			fi
-			echo "<tr><td class=xl24 width=64>`_ student_streamid`</td><td class=xl24 colspan=10> $stream_id</td></tr>" >> $excel_file
 			echo "<tr><td class=xl24 width=64>`_ semester_wise`</td><td class=xl24 colspan=10> `echo $5 | tr ':' ','`</td></tr>" >> $excel_file
-			echo "<tr><td class=xl24 width=64>`_ put_description`</td><td class=xl24 colspan=10> `echo $9 | sed 's/__/ /g'`</td></tr>" >> $excel_file
+			if [ ! -z $put_description ];then
+				echo "<tr><td class=xl24 width=64>`_ put_description`</td><td class=xl24 colspan=10> `echo $9 | sed 's/__/ /g'`</td></tr>" >> $excel_file
+			fi
 			echo "<tr><td class=xl24 width=64>`_ date_generate`</td><td class=xl24 colspan=10>$export_date</td></tr>" >> $excel_file
 			echo "<tr><td class=xl24 colspan=11></td></tr>" >> $excel_file
 			header="`_ student_id`:`_ student_firstname`:`_ student_middlename`:`_ student_lastname`:`_ student_dateenroll`:`_ student_streamid`:`_ student_address`:`_ student_phone`:`_ student_city`:`_ student_state`:`_ student_zipcode`"

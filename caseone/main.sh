@@ -58,7 +58,7 @@ function checking_agrument()
 		case $1 in
 		"-h" | "--help") software_usage;;
 		"-a" | "--action="*) manager $@;;
-		"-l" | "--language="*) update_lang $1;;
+		"-l" | "--language="*) update_lang $1 $2;;
 		*) echo `_ wrong_agr`;;
 		esac
 	fi

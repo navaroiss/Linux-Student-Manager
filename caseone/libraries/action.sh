@@ -225,11 +225,14 @@ function find_row()
 }
 function export_data()
 {
-	menu="`_ export_type_1`:`_ export_type_2`" #Stream wise and semester wise:Stream wise report of all students
+	menu="`_ export_type_1`:`_ export_type_2`:`_ all`" #Stream wise and semester wise:Stream wise report of all students
 	draw_header export_type
 	draw_menu_action action_export `echo $menu | sed "s/ /__/g"`
 	selected_option=`get_option -k`
 	export_file="Export-`date +%d-%m-%Y`.txt"
+	if [ -e "$tmp_dir/search_tmp_result" ];then
+		rm "$tmp_dir/search_tmp_result"
+	fi	
 	case $selected_option in
 		1) 
 		draw_line
@@ -242,6 +245,18 @@ function export_data()
 		get_student_streamid
 		db=$database
 		find_student $db 2 "`echo $stream_id | sed 's/ /__/g'`"
+		;;
+		3)
+		draw_line
+		get_db_name $1 $2
+		for db_item in `echo $db | tr ':' ' '`;do
+			cat "$db_dir/$db_item" >> "$tmp_dir/search_tmp_result"
+		done
+		;;
+		*)
+		echo `_ invaild_selection`
+		echo `_ quit`
+		return
 		;;
 	esac
 	if [ -e "$tmp_dir/search_tmp_result" ];then
