@@ -145,20 +145,27 @@ function auto_tab()
 		fi
 		let ii=$ii+1
 	done
+	if [ ! -z $2 ];then
+		if [ $2 -le 9 ];then
+			stt="0$2"
+		else
+			stt=$2
+		fi	
+	fi
 	if [ ! -z $3 ];then
 		if [ $3 = "-e" ];then
 			let fullwidth=$col_width*12
 			python -c "print '-'*$fullwidth"
-			echo "| $2    $result$col_end" | sed "s/__/ /g"
+			echo "| $stt    $result$col_end" | sed "s/__/ /g"
 		else
 			let fullwidth=$col_width*11
 			python -c "print '-'*$fullwidth"
-			echo "| $2    $result" | sed "s/__/ /g"
+			echo "| $stt    $result" | sed "s/__/ /g"
 		fi
 	else
 		let fullwidth=$col_width*11
 		python -c "print '-'*$fullwidth"
-		echo "| $2    $result" | sed "s/__/ /g"
+		echo "| $stt    $result" | sed "s/__/ /g"
 	fi
 }
 function table_fields()
@@ -170,7 +177,7 @@ function table_fields()
 			total_rows=`cat $1 | wc -l`
 			printf "`_ result_found`\n" $total_rows
 			if [ $i -eq 1 ];then
-				auto_tab `echo $header | sed "s/ /__/g"` "*"
+				auto_tab `echo $header | sed "s/ /__/g"` "0"
 			fi
 			if [ $total_rows -le $item_per_table ];then
 				cat $1 | while read line;do
@@ -209,7 +216,7 @@ function table_fields()
 							if [ $page_input -ge 1 -a $page_input -le $page ];then
 								let test=$page_input-1
 								let start=($page_input-1)*$item_per_table
-								let limit=$start+$item_per_table				
+								let limit=$start+$item_per_table-1
 								if [ $test -eq 0 ];then
 									let start=1
 									let limit=$start+$item_per_table-1

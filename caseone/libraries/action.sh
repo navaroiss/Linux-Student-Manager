@@ -232,11 +232,13 @@ function export_data()
 	export_file="Export-`date +%d-%m-%Y`.txt"
 	case $selected_option in
 		1) 
+		draw_line
 		get_db_name $1 $2
 		get_student_streamid
 		find_student $db 2 "`echo $stream_id | sed 's/ /__/g'`"
 		;;
 		2) 
+		draw_line
 		get_student_streamid
 		db=$database
 		find_student $db 2 "`echo $stream_id | sed 's/ /__/g'`"
