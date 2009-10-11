@@ -113,10 +113,11 @@ function get_student_middlename()
 				break
 			fi
 		fi
-		length=`echo $middlename | wc -w`
-		if [ $length -eq 1 ] && is_string $middlename;then
+		# Chấp nhận trường hợp sinh viên không có tên lót
+		#length=`echo $middlename | wc -w`
+		#if [ $length -eq 1 ] && is_string $middlename;then
 			break
-		fi
+		#fi
 	done
 }
 function get_student_lastname()

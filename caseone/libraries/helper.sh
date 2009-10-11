@@ -77,8 +77,8 @@ function get_option()
 }
 function rows_fields()
 {
-	fields=([0]="Student ID" [1]="First name" [2]="Middle name" [3]="Last name" [4]="Date enrollement" [5]="Stream ID" [6]="Address" [7]="Phone number" [8]="City" [9]="State" [10]="Zipcode")
-	draw_header "Ket qua tim thay"
+	fields=([0]="`_ student_id`" [1]="`_ student_firstname`" [2]="`_ student_middlename`" [3]="`_ student_lastname`" [4]="`_ student_dateenroll`" [5]="`_ student_streamid`" [6]="`_ student_address`" [7]="`_ student_phone`" [8]="`_ student_city`" [9]="`_ student_state`" [10]="`_ student_zipcode`")
+	draw_header found_students
 	i=0
 	echo "$1" > "$tmp_dir/backup_current_row"
 	while [ $i -le 10 ];do
@@ -125,6 +125,7 @@ function auto_tab()
 	result=""
 	ii=1
 	col_end=""
+	line=`echo $line | sed "s/::/:---:/g"`
 	for item in `echo $line | tr ":" " "`;do
 		item="| `echo $item | sed 's/__/ /g'`"
 		if [ ${#item} -lt $col_width ];then
@@ -163,9 +164,9 @@ function auto_tab()
 			echo "| $stt    $result" | sed "s/__/ /g"
 		fi
 	else
-		let fullwidth=$col_width*11
+		let fullwidth=$col_width*12
 		python -c "print '-'*$fullwidth"
-		echo "| $stt    $result" | sed "s/__/ /g"
+		echo "| $stt    $result$col_end" | sed "s/__/ /g"
 	fi
 }
 function table_fields()

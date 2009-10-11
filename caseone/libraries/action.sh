@@ -45,7 +45,6 @@ function manager()
 
 function add_row()
 {
-	draw_line
 	get_db_name $1 $2
 	if [ -e $db_dir/$db ];then
 		last_id="`find_last_row $db_dir/$db`"
@@ -123,7 +122,9 @@ function edit_row()
 	
 		i=0
 		f="$tmp_dir/is_found"
-	
+		if [ -e $f ];then
+			rm $f
+		fi
 		cat $db_dir/$db | while read line; do
 			mssv=`echo $line | cut -d":" -f1`
 			if [ $mssv = "$student_id" ];then
@@ -133,7 +134,6 @@ function edit_row()
 			fi
 			let i=$i+1
 		done
-	
 		if [ -e $f ];then
 			get_student_firstname ^
 			get_student_middlename ^
