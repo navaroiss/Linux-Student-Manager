@@ -40,13 +40,14 @@ function draw_string()
 }
 function draw_menu_action()
 {
-	i=1
+	i=0
 	draw_string $1
 	mm="$2"
 	if [ ! -z $2 ];then
 		for menu_item in `echo $mm | tr ":" " "`;do
 			menus[$i]=`echo $menu_item | sed "s/__/ /g"`
-			draw_string "$i) ${menus[$i]}"
+			let dem=$i+1
+			draw_string "$dem) ${menus[$i]}"
 			let i=$i+1
 		done
 		draw_line

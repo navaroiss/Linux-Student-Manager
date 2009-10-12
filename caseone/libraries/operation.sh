@@ -73,6 +73,7 @@ function get_db_name()
 			if [ ! -z $2 ];then
 				db=$2
 			else
+				draw_line
 				draw_menu_action select_database $database
 				db=`get_option`
 			fi		
@@ -80,11 +81,13 @@ function get_db_name()
 			if is_dbarg $1; then
 				db=`get_db_value $1`
 			else
+				draw_line
 				draw_menu_action select_database $database
 				db=`get_option`				
 			fi
 		fi
 	else
+		draw_line
 		draw_menu_action select_database $database
 		db=`get_option`
 	fi
@@ -115,9 +118,9 @@ function get_student_middlename()
 		fi
 		# Chấp nhận trường hợp sinh viên không có tên lót
 		#length=`echo $middlename | wc -w`
-		#if [ $length -eq 1 ] && is_string $middlename;then
+		if is_string $middlename;then
 			break
-		#fi
+		fi
 	done
 }
 function get_student_lastname()
@@ -144,7 +147,8 @@ function get_student_dateenroll()
 				break
 			fi
 		fi
-		if [ ! -z $date_enroll ];then
+		length=`echo $date_enroll | wc -w`
+		if [ $length -eq 1 ];then
 			if is_date $date_enroll;then
 				break
 			fi
@@ -211,9 +215,11 @@ function get_student_city()
 				break
 			fi
 		fi
-		length=`echo $city | wc -w`
-		if [ $length -ge 1 ];then
-			break
+		if is_string $city;then
+			length=`echo $city | wc -w`
+			if [ $length -ge 1 ];then
+				break
+			fi
 		fi
 	done
 }
@@ -226,9 +232,11 @@ function get_student_state()
 				break
 			fi
 		fi
-		length=`echo $state | wc -w`
-		if [ $length -ge 1 ];then
-			break
+		if is_string $state;then
+			length=`echo $state | wc -w`
+			if [ $length -ge 1 ];then
+				break
+			fi
 		fi
 	done
 }

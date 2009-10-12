@@ -170,6 +170,7 @@ function find_row()
 	draw_header action_find_student
 	get_db_name $1 $2
 	menu="`_ student_id`:`_ student_name`:`_ student_streamid`:`_ semester_wise`:`_ student_city`:`_ student_state`"
+	draw_line
 	draw_menu_action select_find_type `echo $menu | sed "s/ /__/g"`
 	selected_option=`get_option -k`
 
@@ -235,19 +236,19 @@ function export_data()
 	fi	
 	case $selected_option in
 		1) 
-		draw_line
+		#draw_line
 		get_db_name $1 $2
 		get_student_streamid
 		find_student $db 2 "`echo $stream_id | sed 's/ /__/g'`"
 		;;
 		2) 
-		draw_line
+		#draw_line
 		get_student_streamid
 		db=$database
 		find_student $db 2 "`echo $stream_id | sed 's/ /__/g'`"
 		;;
 		3)
-		draw_line
+		#draw_line
 		get_db_name $1 $2
 		for db_item in `echo $db | tr ':' ' '`;do
 			cat "$db_dir/$db_item" >> "$tmp_dir/search_tmp_result"
@@ -264,7 +265,7 @@ function export_data()
 		description="`echo $description | sed 's/ /__/g'`"
 		file_type_menu="Text:CSV:Excel"
 		draw_line
-		draw_menu_action action_export `echo $file_type_menu | sed "s/ /__/g"`
+		draw_menu_action action_export_type `echo $file_type_menu | sed "s/ /__/g"`
 		file_type=`get_option -k`
 		case $file_type in
 		1)

@@ -1,26 +1,26 @@
 Linux Student Manger
 
-Tieng anh
+Provide some helps for who wants to use this software.
 
-Lệnh: . main.sh [-h | --help]
-	-h, --help: Hướng dẫn cách sử dụng.
+Command: . main.sh [-h | --help]
+	-h, --help: Print this tutorial.
 
-	-a, --action: Hành động của người dùng.
-		add: Thêm vào danh sách sinh viên.
-		edit: Cập nhật thông tin sinh viên.
-		del: Xóa sinh viên ra khỏi danh sách.
-		find: Tìm kiếm thông tin sinh viên.
-		dump: Xuất ra bảng báo cáo.
+	-a, --action: The action of user.
+		add: Add a student.
+		edit: Update the information of the student.
+		del: Delete a student.
+		find: Find student by the keyword.
+		dump: Export data.
 
-	-db, --database: Chọn database để thực hiện các thao tác.
-		A: Tìm trên dữ liệu học kì I.
-		B: Tìm trên dữ liệu học kì II.
-		C: Tìm trên dữ liệu học kì III.
-		D: Tìm trên dữ liệu học kì IV.
-		a: Tìm trên tấc cả dữ liệu.
-		[A]:[B]:[C]:[D]: Tìm trên dữ liệu học kì.
+	-db, --database: To select which the database will be used.
+		A: Find in the semester A.
+		B: Find in the semester B.
+		C: Find in the semester C.
+		D: Find in the semester D.
+		a: Find in all semesters.
+		[A]:[B]:[C]:[D]: Find all multiple semesters.
 	
-	-l, --language: Chọn ngôn ngữ
+	-l, --language: Setting a language.
 
 Example:
 	. main.sh -a add -db A
