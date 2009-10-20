@@ -25,6 +25,8 @@ col_width=13
 	
 function checking_files()
 {
+# Kiểm tra và thực thi các file của hệ thống để tạo thư viện chức năng.
+# Thoát chương trình nếu thiếu những file quan trọng.
 	for item in `echo $1 | tr ":" " "`; do
 		file="$3$item"
 		if [ -e $file ];then
@@ -41,7 +43,7 @@ function checking_files()
 
 function initialize_system()
 {
-	
+# Initial hệ thống
 	libs=`echo $libraries && echo $PLUS_LIBS`
 	dbs=`echo $database && echo $PLUS_DBS`
 	
@@ -52,6 +54,7 @@ function initialize_system()
 
 function checking_agrument()
 {
+# Kiểm tra đối số và gọi các hàm thực hiện option
 	if [ $# -eq 0 ]; then
 		software_usage
 	fi
@@ -67,6 +70,7 @@ function checking_agrument()
 
 function start_program()
 {
+# Khởi động chương trình
 	# Kiểm tra các file hệ thống
 	initialize_system
 	# Kiểm tra tham số

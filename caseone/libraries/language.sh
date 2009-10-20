@@ -1,6 +1,7 @@
 #!/bin/bash
 function _()
 {
+# Hàm translation cho các ngôn ngữ
 	# Hàm tìm chuỗi có giá trị tương ứng của ngôn ngữ dựa vào từ khóa cung cấp.
 	l=`get_lang`
 	cat $lang_dir/$l/$l.conf | while read line; do
@@ -17,6 +18,7 @@ function _()
 
 function get_lang()
 {
+# Xác định ngôn ngữ đang dùng
 	if [ -e $tmp_store_lang ];then
 		soft_lang=`cat "$lang_dir/config.conf"`
 		if [ ! -z $soft_lang ];then
@@ -31,7 +33,7 @@ function get_lang()
 
 function software_usage()
 {
- 	# In hướng dẫn sử dụng
+# In hướng dẫn sử dụng
  	display_bold
  	tput clear
  	if _; then
@@ -44,8 +46,8 @@ function software_usage()
 
 function define_lang()
 {
-	# Định nghĩa ngôn ngữ sẽ dùng cho phần mềm này.
-	# Mặc định ban đầu là tiếng Việt.
+# Định nghĩa ngôn ngữ sẽ dùng cho phần mềm này.
+# Mặc định ban đầu là tiếng Việt.
 	if [ ! -z $1 ];then
 		_usage="$lang_dir/$1/usage.txt"
 		_data="$lang_dir/$1/$1.conf"
@@ -63,6 +65,7 @@ function define_lang()
 }
 function list_lang()
 {
+# Liệt kê danh sách các ngôn ngữ có thể sử dụng cho phần mềm
 	current_lang=`cat $lang_dir/config.conf`
 	lang_name=`cat "$lang_dir/$current_lang/name.conf" | cut -d"-" -f2`
 	echo "`_ current_lang`: $lang_name"
@@ -86,6 +89,7 @@ function list_lang()
 }
 function update_lang()
 {
+# Cập nhật ngôn ngữ
 	if [ ! -z $1 ];then
 		if [ $1 = "-l" ];then
 			if [ ! -z $2 ];then

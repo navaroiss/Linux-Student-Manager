@@ -1,6 +1,6 @@
 function manager()
 {
-
+# Xác định và gọi action
 	if [ $1 = "-a" ];then
 		if [ -z $2 ];then
 			action_list="add:edit:del:find:dump:exit" # Data cung cap cho ham ve menu
@@ -45,6 +45,8 @@ function manager()
 
 function add_row()
 {
+# Thêm sinh viên vào database.
+# Chỉ thêm 1 sinh viên vào 1 database cùng lúc.
 	get_db_name $1 $2
 	if [ -e $db_dir/$db ];then
 		last_id="`find_last_row $db_dir/$db`"
@@ -72,6 +74,7 @@ function add_row()
 }
 function del_row()
 {
+# Xóa sinh viên ra khỏi danh sách
 	draw_header action_del_student
 	get_db_name $1 $2
 	if [ -e $db_dir/$db ];then
@@ -112,6 +115,7 @@ function del_row()
 }
 function edit_row()
 {
+# Cập nhật thông tin sinh viên.
 	draw_header action_edit_student
 	get_db_name $1 $2
 	if [ -e $db_dir/$db ];then
@@ -167,6 +171,14 @@ function edit_row()
 }
 function find_row()
 {
+# Tìm kiếm sinh viên theo các tiêu chí:
+# + Mã số sinh viên
+# + Tên sinh viên
+# + Nghành học
+# + Học kì
+# + Thành phố
+# + Mã vùng
+
 	draw_header action_find_student
 	get_db_name $1 $2
 	menu="`_ student_id`:`_ student_name`:`_ student_streamid`:`_ semester_wise`:`_ student_city`:`_ student_state`"
@@ -226,6 +238,7 @@ function find_row()
 }
 function export_data()
 {
+# Xuất dữ liệu ra định dạng excel
 	menu="`_ export_type_1`:`_ export_type_2`:`_ all`" #Stream wise and semester wise:Stream wise report of all students
 	draw_header export_type
 	draw_menu_action action_export `echo $menu | sed "s/ /__/g"`

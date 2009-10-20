@@ -4,11 +4,13 @@ line_length=70
 
 function draw_line()
 {
+# Vẽ line
 	#echo "`python -c "print '$line_style'*$line_length"`"
 	echo "**********************************************************************"
 }
 function draw_header()
 {
+# Vẽ header
 	draw_line
 	draw_string
 	draw_string $1
@@ -17,6 +19,7 @@ function draw_header()
 }
 function draw_plain_string()
 {
+# Vễ dòng chữ trong header
 	m="$line_style $1"
 	if [ ${#m} -lt $line_length ];then
 		let left_length=$line_length-${#m}-3
@@ -26,6 +29,7 @@ function draw_plain_string()
 }
 function draw_string()
 {
+# Vễ dòng chữ trong header
 	nb="`echo $1 | wc -w`"
 	if [ $nb -ge 2 ];then
 		m="$line_style $1"
@@ -40,6 +44,7 @@ function draw_string()
 }
 function draw_menu_action()
 {
+# Vẽ menu 
 	i=0
 	draw_string $1
 	mm="$2"
@@ -55,6 +60,7 @@ function draw_menu_action()
 }
 function get_option()
 {
+# Lấy giá trị từ các lựa chọn từ menu 
 	while read -p "`_ your_choise`: " index;do
 		if [ ! -z "$index" ];then
 			if [ ${#index} -eq 1 -o ${#index} -eq 2 ];then
@@ -121,6 +127,7 @@ function col_field()
 }
 function auto_tab()
 {
+# Vẽ cột với dữ liệu trong database.
 	# Cho cot address ra sau cung
 	line=$1
 	result=""
@@ -172,6 +179,7 @@ function auto_tab()
 }
 function table_fields()
 {
+# Vẽ bảng, export ra tệp text
 	header="`_ student_id`:`_ student_firstname`:`_ student_middlename`:`_ student_lastname`:`_ student_dateenroll`:`_ student_streamid`:`_ student_address`:`_ student_phone`:`_ student_city`:`_ student_state`:`_ student_zipcode`"
 	if [ -z $2 ];then
 		if [ ! -z $1 ];then

@@ -1,6 +1,7 @@
 #!/bin/bash
 function get_data_from_backup()
 {
+# Fetch data từ file backup
 	old_data=`cat $tmp_dir/backup_current_row`
 	case $1 in
 		1) item=`echo $old_data | cut -d":" -f1`;;
@@ -19,6 +20,7 @@ function get_data_from_backup()
 }
 function find_last_row()
 {
+# Lấy ra ID sinh viên mới nhất
 	if [ ! -z $1 ];then
 		cat $1 | sort -t ":" -r | head -n1 | cut -d":" -f1
 	fi
@@ -60,13 +62,15 @@ function next_last_id()
 	echo "$prx$number"
 }
 
-function get_db_value()
+function get_db_value() 
 {
+# fetch database
 	echo $1 | cut -d'=' -f2
 }
 
 function get_db_name()
 {
+# Lấy database phù hợp
 	# draw_line
 	if [ ! -z $1 ] ; then
 		if [ $1 = "-db" ];then
@@ -94,6 +98,7 @@ function get_db_name()
 }
 function get_student_firstname()
 {
+# Lấy firstname
 	while read -p "`_ student_firstname`: " firstname;do
 		if [ ! -z $1 ];then
 			if [ "$firstname" = "$1" ];then
@@ -109,6 +114,7 @@ function get_student_firstname()
 }
 function get_student_middlename()
 {
+#  Lấy middlename
 	while read -p "`_ student_middlename`: " middlename;do
 		if [ ! -z $1 ];then
 			if [ "$middlename" = "$1" ];then
@@ -125,6 +131,7 @@ function get_student_middlename()
 }
 function get_student_lastname()
 {
+# Lấy lastname
 	while read -p "`_ student_lastname`: " lastname;do
 		if [ ! -z $1 ];then
 			if [ "$lastname" = "$1" ];then
@@ -140,6 +147,7 @@ function get_student_lastname()
 }
 function get_student_dateenroll()
 {
+# Lấy ngày đăng kí
 	while read -p "`_ student_dateenroll`: " date_enroll;do
 		if [ ! -z $1 ];then
 			if [ "$date_enroll" = "$1" ];then
@@ -157,6 +165,7 @@ function get_student_dateenroll()
 }
 function get_student_streamid()
 {
+# Lấy nghành học
 	while read -p "`_ student_streamid` (CS/IT/ET/EE/EI/ME/CE): " stream_id;do
 		if [ ! -z $1 ];then
 			if [ "$stream_id" = "$1" ];then
@@ -174,6 +183,7 @@ function get_student_streamid()
 }
 function get_student_phone()
 {
+# Lấy số phone
 	while read -p "`_ student_phone`: " phone;do
 		if [ ! -z $1 ];then
 			if [ "$phone" = "$1" ];then
@@ -193,6 +203,7 @@ function get_student_phone()
 }
 function get_student_address()
 {
+# Lấy address
 	while read -p "`_ student_address`: " address;do
 		if [ ! -z $1 ];then
 			if [ "$address" = "$1" ];then
@@ -208,6 +219,7 @@ function get_student_address()
 }
 function get_student_city()
 {
+# Lấy city
 	while read -p "`_ student_city`: " city;do
 		if [ ! -z $1 ];then
 			if [ "$city" = "$1" ];then
@@ -225,6 +237,7 @@ function get_student_city()
 }
 function get_student_state()
 {
+# Lấy state
 	while read -p "`_ student_state`: " state;do
 		if [ ! -z $1 ];then
 			if [ "$state" = "$1" ];then
@@ -242,6 +255,7 @@ function get_student_state()
 }
 function get_student_zipcode()
 {
+# Lấy mã vùng
 	while read -p "`_ student_zipcode`: " zipcode;do
 		if [ ! -z $1 ];then
 			if [ "$zipcode" = "$1" ];then
@@ -257,6 +271,7 @@ function get_student_zipcode()
 }
 function find_student()
 {
+# Tìm kiếm sinh viên và xuất ra file chứa kết quả.
 	if [ -e "$tmp_dir/search_tmp_result" ];then
 		rm "$tmp_dir/search_tmp_result"
 	fi
@@ -303,6 +318,7 @@ function fshift_segment()
 }
 function export_as_excel()
 {
+# Xuất ra excel
 	excel_content=`cat $lib_dir/xlsformat`
 	excel_file="`echo $3 | sed 's/\.txt/\.xls/'`"
 	if [ ! -z $1 ];then
@@ -339,6 +355,7 @@ function export_as_excel()
 }
 function export_as_csv()
 {
+# Xuất ra csv
 	if [ ! -z $1 ];then
 		if [ -e $1 ];then
 			export_date=`date +%d-%m-%Y`

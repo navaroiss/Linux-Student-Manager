@@ -10,6 +10,7 @@ function test_string()
 }
 function is_numeric()
 {
+# Kiểm tra số
 	if test_string $1;then
 		return 0
 	else
@@ -18,6 +19,7 @@ function is_numeric()
 }
 function is_string()
 {
+# Kiểm tra chuỗi
 	if test_string $1;then
 		return 1
 	else
@@ -47,6 +49,7 @@ function test_dbarg()
 }
 function is_dbarg()
 {
+# Kiểm tra database
 	if test_dbarg $1;then
 		return 1
 	else
@@ -70,6 +73,7 @@ function test_leapyear()
 }
 function is_leapyear()
 {
+# Kiểm tra năm nhuần
 	if test_leapyear $1;then
 		return 1
 	else
@@ -85,6 +89,7 @@ function test_monthname()
 }
 function is_monthname()
 {
+# Kiểm tra tên tháng
 	if test_monthname $1; then
 		return 1
 	else
@@ -144,6 +149,7 @@ function test_date()
 }
 function is_date()
 {
+# Kiểm tra date
 	if test_date $1;then
 		return 1
 	else
@@ -159,6 +165,7 @@ function test_streamwise()
 }
 function is_streamwise()
 {
+# Kiểm tra học kì
 	if test_streamwise $1; then
 		return 1
 	else
@@ -175,6 +182,7 @@ function test_match()
 }
 function is_match()
 {
+# Kiểm tra chuỗi
 	if test_match $1 $2;then
 		return 1
 	else
