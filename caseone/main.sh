@@ -1,5 +1,6 @@
 #!/bin/bash
-# Author: Le Dinh Thuong
+# Author: Lê Đình Thương
+#	  Phùng Vĩ Hào
 # eMail: navaroiss@gmail.com
 # Date: 26/9/2009
 # Deadline: 26/10/2009
