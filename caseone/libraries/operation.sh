@@ -263,9 +263,11 @@ function get_student_zipcode()
 				break
 			fi
 		fi
-		length=`echo $zipcode | wc -w`
-		if [ $length -ge 1 ];then
-			break
+		if is_string $zipcode;then
+			length=`echo $zipcode | wc -w`
+			if [ $length -eq 1 ];then
+				break
+			fi
 		fi
 	done
 }

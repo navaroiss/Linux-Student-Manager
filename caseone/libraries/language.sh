@@ -82,6 +82,9 @@ function list_lang()
 	index=0
 	while [ $index -lt 1 -o $index -ge $i ];do 
 		read -p ">>> " index
+		if is_string $index;then
+			index=0
+		fi
 	done
 	if [ ! -z ${lang[$index]} ];then
 		define_lang ${lang[$index]}
