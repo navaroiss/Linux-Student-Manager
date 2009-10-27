@@ -7,7 +7,7 @@ function manager()
 			draw_line
 			draw_menu_action missing_action $action_list  # Ve menu
 			user_act=`get_option`
-			echo ">>> Bạn đã chọn action $user_act"
+			
 			case  $user_act in
 			"add") add_row;;
 			"edit") edit_row;;

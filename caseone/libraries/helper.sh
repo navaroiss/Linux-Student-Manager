@@ -76,10 +76,12 @@ function get_option()
 		if [ $1 = "-k" ];then
 			echo "$index"
 		else
-			echo "${menus[$index]}"
+			let d=$index-1
+			echo "${menus[$d]}"
 		fi	
 	else
-		echo "${menus[$index]}"		
+		let d=$index-1
+		echo "${menus[$d]}"		
 	fi
 }
 function rows_fields()
